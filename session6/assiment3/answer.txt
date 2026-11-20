@@ -1,0 +1,30 @@
+Bug 1: Stylesheet not loading
+Before: DevTools Network tab showed styles.css returned 404; page had no styling.
+Line in index.html: <link rel="stylesheet" href="style.css">
+Effect: CSS never applied because the filename didn't match the actual file (styles.css).
+Fix: changed href to "styles.css".
+Test: refreshed → Network tab shows 200, styles applied.
+
+Bug 2: Inline style overriding h1 color
+Before: h1 rendered tomato despite the h1,h2 rule.
+Line in index.html: <h1 style="color: tomato;">coderz Institute</h1>
+Effect: inline styles have higher priority than external selectors (without !important).
+Fix: removed the style attribute.
+Test: h1 now matches --brand color (#12546c).
+
+Bug 3: h2 font-size unit (em vs rem)
+Before: DevTools Computed showed font-size: 30px on h2
+  (root = 16px, card = 20px, 1.5em on h2 = 1.5 x 20 = 30px).
+Line in styles.css: .course-card h2 { font-size: 1.5em; }
+Effect: em is relative to parent (.course-card, 20px); we need rem so it's relative
+to the root (16px).
+Fix: changed to font-size: 1.5rem.
+Test: Computed now shows 24px on h2 (1.5 x 16 = 24); .course-card stays 20px;
+root stays 16px.
+
+
+Brand test (--brand)
+Changed :root --brand from #12546c to #c0392b (test red).
+Observed: both h1 "coderz Institute" and h2 "CSS Foundations" turned red.
+Restored to #12546c before submission.
+Proves the variable is being read by both headings from a single source.
