@@ -5,71 +5,105 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #F5F3FF;
+  background: #F8FAFC;
   font-family: Arial, sans-serif;
   direction: rtl;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 30px 15px;
 }
 
 .page {
-  width: 100%;
-  max-width: 820px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.board-title {
+  margin: 0 0 25px;
+  font-size: 30px;
+  color: #0F172A;
+  text-align: right;
+}
+
+/* ===== صف الأعمدة (Flexbox خارجي) ===== */
+.board {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ===== العمود ===== */
+.column {
+  flex: 1 1 300px;          /* عرض متساوٍ + التفاف عند الضيق */
+  background: #F1F5F9;
+  border: 2px solid #CBD5E1;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;   /* تكديس البطاقات عموديا */
+  gap: 15px;
+}
+
+/* رأس العمود: العنوان يسار/العداد يمين */
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #CBD5E1;
+}
+
+.column-title {
+  margin: 0;
+  font-size: 18px;
+  color: #0F172A;
+}
+
+/* العداد */
+.count {
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ألوان العدادات حسب العمود */
+.column-start .count   { background: #DBEAFE; color: #1D4ED8; }
+.column-progress .count { background: #FEF3C7; color: #92400E; }
+.column-done .count    { background: #DCFCE7; color: #166534; }
+
+/* ===== حاوية البطاقات داخل العمود ===== */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* ===== البطاقة ===== */
-.profile-card {
-  display: flex;
-  flex-wrap: wrap;               /* يسمح بالالتفاف عند ضيق المساحة */
-  align-items: center;           /* توسيط عمودي */
-  gap: 30px;
-  padding: 35px;
+.card {
   background: #FFFFFF;
   border: 2px solid #CBD5E1;
-  border-radius: 20px;
-}
-
-/* ===== الصورة ===== */
-.profile-photo {
-  flex: 0 0 auto;
-}
-
-.profile-photo img {
-  display: block;
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 16px;
-  border: 2px solid #CBD5E1;
-}
-
-/* ===== المعلومات ===== */
-.profile-info {
-  flex: 1 1 320px;               /* يأخذ المساحة المتبقية ويلتف عند الضيق */
+  border-radius: 12px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-.name {
-  margin: 0;
-  font-size: 28px;
-  color: #183B42;
-}
-
-.role {
+.card-title {
   margin: 0;
   font-size: 16px;
-  font-weight: bold;
-  color: #6D28D9;
+  color: #0F172A;
 }
 
-.description {
-  margin: 4px 0 10px;
-  font-size: 15px;
-  line-height: 1.7;
+.card-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
   color: #64748B;
 }
 
@@ -77,41 +111,18 @@ body {
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .tag {
-  padding: 6px 14px;
-  background: #EDE9FE;
-  color: #6D28D9;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 4px 12px;
   border-radius: 999px;
-}
-
-/* ===== الأزرار ===== */
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 6px;
-}
-
-.btn {
-  padding: 10px 22px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-  border: 2px solid #6D28D9;
 }
 
-.btn-primary {
-  background: #6D28D9;
-  color: #FFFFFF;
-}
-
-.btn-outline {
-  background: transparent;
-  color: #6D28D9;
-}
+/* ألوان الشارات حسب العمود */
+.column-start .tag   { background: #DBEAFE; color: #1D4ED8; }
+.column-progress .tag { background: #FEF3C7; color: #92400E; }
+.column-done .tag    { background: #DCFCE7; color: #166534; }
